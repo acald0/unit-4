@@ -24,7 +24,7 @@ class Team(db.Model):
     team_name = db.Column(db.String(255), unique = True, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
-    projects = db.realtionship("Project", backref = "team", lazy = False)
+    projects = db.relationship("Project", backref = "team", lazy = False)
 
     def __init__(self,team_name,user_id):
         self.team_name = team_name
