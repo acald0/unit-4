@@ -21,8 +21,11 @@ def add_team():
     team_form = TeamForm()
 
     if team_form.validate_on_submit():
-        print(team_form.team_name.data)
+        team_name = team_form.team_name.data
 
+        new_team = Team(team_name, USER_ID)
+        db.session.add(new_team)
+        db.session.commit()
     return redirect(url_for("home"))
 
 
@@ -32,11 +35,14 @@ def add_project():
     project_form.update_teams(User.query.get(USER_ID).teams)
 
     if project_form.validate_on_submit():
-        print(project_form.project_name.data)
-        print(project_form.description.data)
-        print(project_form.completed.data)
-        print(project_form.team_selection.data)
-    
+        project_name = project_form.project_name.data
+        description = project_form.description.data
+        completed = project_form.completed.data
+        team_selection = project_form.team_selection.data
+
+        new_project = Project(project_name, description, completed, team_selection)
+        db.session.add(new_project)
+        db.session.commit()
     return redirect(url_for("home"))
 
 
